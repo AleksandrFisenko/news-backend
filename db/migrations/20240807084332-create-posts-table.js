@@ -1,6 +1,5 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable('Posts', {
@@ -36,21 +35,16 @@ module.exports = {
         },
       },
       image_url: {
-        allowNull: false,
         type: Sequelize.STRING,
-        validate: {
-          notNull: true,
-          notEmpty: true,
-        },
       },
       createdAt: {
         allowNull: false,
-        defaultValue: Sequelize.fn('NOW'),
+        defaultValue: Date.now(),
         type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        defaultValue: Sequelize.fn('NOW'),
+        defaultValue: Date.now(),
         type: Sequelize.DATE,
       },
     });

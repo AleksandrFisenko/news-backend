@@ -1,6 +1,5 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable('Users', {
@@ -16,6 +15,7 @@ module.exports = {
         validate: {
           notNull: true,
           notEmpty: true,
+          isEmail: true,
         },
       },
       password: {
@@ -35,21 +35,16 @@ module.exports = {
         },
       },
       avatar_url: {
-        allowNull: false,
         type: Sequelize.STRING,
-        validate: {
-          notNull: true,
-          notEmpty: true,
-        },
       },
       createdAt: {
         allowNull: false,
-        defaultValue: Sequelize.fn('NOW'),
+        defaultValue: Date.now(),
         type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        defaultValue: Sequelize.fn('NOW'),
+        defaultValue: Date.now(),
         type: Sequelize.DATE,
       },
     });
