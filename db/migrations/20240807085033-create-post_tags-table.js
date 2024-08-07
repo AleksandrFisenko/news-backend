@@ -3,20 +3,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable('Tags', {
-      id: {
-        primaryKey: true,
-        autoIncrement: true,
-        type: Sequelize.INTEGER,
-      },
-      name: {
+    return queryInterface.createTable('Post_Tags', {
+      post_id: {
         allowNull: false,
-        unique: true,
-        type: Sequelize.STRING,
-        validate: {
-          notNull: true,
-          notEmpty: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Posts',
+          key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      tag_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Tags',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +38,6 @@ module.exports = {
   },
 
   down(queryInterface) {
-    return queryInterface.dropTable('Tags');
+    return queryInterface.dropTable('Post_Tags');
   },
 };
