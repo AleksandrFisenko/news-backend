@@ -20,7 +20,7 @@ export class Tags extends Model {
   name: string;
 
   @BelongsToMany(() => Posts, () => Post_Tags)
-  tags: Posts[];
+  posts: Posts[];
 
   @CreatedAt
   createdAt: Date;
