@@ -4,7 +4,7 @@ module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable('Post_Tags', {
       post_id: {
-        allowNull: false,
+        primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
           model: 'Posts',
@@ -14,7 +14,7 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       tag_id: {
-        allowNull: false,
+        primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
           model: 'Tags',
