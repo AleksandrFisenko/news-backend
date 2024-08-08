@@ -1,5 +1,13 @@
-import { Model } from "sequelize";
-import { Column, DataType, Table } from "sequelize-typescript";
+import {
+  Model,
+  Column,
+  Table,
+  CreatedAt,
+  UpdatedAt,
+  BelongsToMany,
+} from "sequelize-typescript";
+import { Post_Tags } from "./postTags.model";
+import { Posts } from "./post.model";
 
 @Table({
   tableName: "Tags",
@@ -8,22 +16,15 @@ export class Tags extends Model {
   @Column({
     allowNull: false,
     unique: true,
-    validate: {
-      notNull: true,
-      notEmpty: true,
-    },
   })
   name: string;
 
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-  })
-  createdAt: string;
+  @BelongsToMany(() => Posts, () => Post_Tags)
+  tags: Posts[];
 
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-  })
-  updatedAt: string;
+  @CreatedAt
+  createdAt: Date;
+
+  @UpdatedAt
+  updatedAt: Date;
 }
