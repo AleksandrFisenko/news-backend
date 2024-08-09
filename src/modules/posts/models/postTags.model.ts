@@ -7,7 +7,7 @@ import {
   ForeignKey,
 } from "sequelize-typescript";
 import { Post } from "./post.model";
-import { Tag } from "./tags.model";
+import { Tag } from "./tag.model";
 
 @Table({
   tableName: "PostTags",

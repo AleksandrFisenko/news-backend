@@ -4,7 +4,7 @@ import { SequelizeModule } from "@nestjs/sequelize";
 
 import { PostsModule } from "../posts/posts.module";
 import { Post } from "../posts/models/post.model";
-import { Tag } from "../posts/models/tags.model";
+import { Tag } from "../posts/models/tag.model";
 import { PostTags } from "../posts/models/postTags.model";
 import { Users } from "db/models/users.model";
 

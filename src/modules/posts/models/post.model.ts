@@ -9,7 +9,7 @@ import {
   BelongsToMany,
   ForeignKey,
 } from "sequelize-typescript";
-import { Tag } from "./tags.model";
+import { Tag } from "./tag.model";
 import { PostTags } from "./postTags.model";
 
 
