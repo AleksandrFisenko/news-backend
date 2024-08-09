@@ -1,13 +1,14 @@
 import { Module } from "@nestjs/common";
+import { SequelizeModule } from "@nestjs/sequelize";
+
 import { PostsController } from "./posts.controller";
 import { PostsService } from "./posts.service";
-import { SequelizeModule } from "@nestjs/sequelize";
-import { Posts } from "./models/post.model";
-import { Tags } from "./models/tags.model";
+import { Post } from "./models/post.model";
+import { Tag } from "./models/tags.model";
 import { PostTags } from "./models/postTags.model";
 
 @Module({
-  imports: [SequelizeModule.forFeature([Posts, Tags, PostTags])],
+  imports: [SequelizeModule.forFeature([Post, Tag, PostTags])],
   controllers: [PostsController],
   providers: [PostsService],
 })

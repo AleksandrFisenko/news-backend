@@ -6,18 +6,18 @@ import {
   UpdatedAt,
   ForeignKey,
 } from "sequelize-typescript";
-import { Posts } from "./post.model";
-import { Tags } from "./tags.model";
+import { Post } from "./post.model";
+import { Tag } from "./tags.model";
 
 @Table({
   tableName: "PostTags",
 })
 export class PostTags extends Model {
-  @ForeignKey(() => Posts)
+  @ForeignKey(() => Post)
   @Column
   post_id: number;
 
-  @ForeignKey(() => Tags)
+  @ForeignKey(() => Tag)
   @Column
   tag_id: number;
 
