@@ -18,7 +18,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      name: {
+      title: {
         allowNull: false,
         type: Sequelize.STRING,
         validate: {
@@ -26,7 +26,7 @@ module.exports = {
           notEmpty: true,
         },
       },
-      title: {
+      text: {
         allowNull: false,
         type: Sequelize.STRING,
         validate: {

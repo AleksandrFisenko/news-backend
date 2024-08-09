@@ -28,12 +28,12 @@ export class Posts extends Model {
   @Column({
     allowNull: false,
   })
-  name: string;
+  title: string;
 
   @Column({
     allowNull: false,
   })
-  title: string;
+  text: string;
 
   @BelongsToMany(() => Tags, () => PostTags)
   tags: Tags[];
