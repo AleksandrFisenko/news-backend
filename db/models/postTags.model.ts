@@ -5,31 +5,21 @@ import {
   CreatedAt,
   UpdatedAt,
   ForeignKey,
-  BelongsTo,
-  PrimaryKey,
 } from "sequelize-typescript";
 import { Posts } from "./post.model";
 import { Tags } from "./tags.model";
 
 @Table({
-  tableName: "Post_Tags",
+  tableName: "PostTags",
 })
-export class Post_Tags extends Model {
-  @PrimaryKey
+export class PostTags extends Model {
   @ForeignKey(() => Posts)
   @Column
   post_id: number;
 
-  @PrimaryKey
   @ForeignKey(() => Tags)
   @Column
   tag_id: number;
-
-  @BelongsTo(() => Posts)
-  post: Posts;
-
-  @BelongsTo(() => Tags)
-  tag: Tags;
 
   @CreatedAt
   createdAt: Date;

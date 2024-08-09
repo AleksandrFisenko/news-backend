@@ -12,6 +12,7 @@ import {
 export class Users extends Model {
   @Column({
     allowNull: false,
+    unique: true,
   })
   email: string;
 

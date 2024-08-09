@@ -6,15 +6,17 @@ import {
   UpdatedAt,
   BelongsTo,
   BelongsToMany,
+  ForeignKey,
 } from "sequelize-typescript";
 import { Users } from "./users.model";
 import { Tags } from "./tags.model";
-import { Post_Tags } from "./postTags.model";
+import { PostTags } from "./postTags.model";
 
 @Table({
   tableName: "Posts",
 })
 export class Posts extends Model {
+  @ForeignKey(() => Users)
   @Column({
     allowNull: false,
   })
@@ -31,9 +33,9 @@ export class Posts extends Model {
   @Column({
     allowNull: false,
   })
-  text: string;
+  title: string;
 
-  @BelongsToMany(() => Tags, () => Post_Tags)
+  @BelongsToMany(() => Tags, () => PostTags)
   tags: Tags[];
 
   @Column
