@@ -1,3 +1,4 @@
+import { Users } from "db/models/users.model";
 import {
   Model,
   Column,
@@ -8,9 +9,9 @@ import {
   BelongsToMany,
   ForeignKey,
 } from "sequelize-typescript";
-import { Users } from "./users.model";
 import { Tags } from "./tags.model";
 import { PostTags } from "./postTags.model";
+
 
 @Table({
   tableName: "Posts",
