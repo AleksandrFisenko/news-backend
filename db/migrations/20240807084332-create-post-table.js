@@ -2,20 +2,40 @@
 
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable('Tags', {
+    return queryInterface.createTable('Post', {
       id: {
         primaryKey: true,
         autoIncrement: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      user_id: {
         allowNull: false,
-        unique: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      title: {
+        allowNull: false,
         type: Sequelize.STRING,
         validate: {
           notNull: true,
           notEmpty: true,
         },
+      },
+      text: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      image_url: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +51,6 @@ module.exports = {
   },
 
   down(queryInterface) {
-    return queryInterface.dropTable('Tags');
+    return queryInterface.dropTable('Post');
   },
 };

@@ -1,3 +1,4 @@
+import { Users } from "db/models/users.model";
 import {
   Model,
   Column,
@@ -8,14 +9,14 @@ import {
   BelongsToMany,
   ForeignKey,
 } from "sequelize-typescript";
-import { Users } from "./users.model";
-import { Tags } from "./tags.model";
+import { Tag } from "./tag.model";
 import { PostTags } from "./postTags.model";
 
+
 @Table({
-  tableName: "Posts",
+  tableName: "Post",
 })
-export class Posts extends Model {
+export class Post extends Model {
   @ForeignKey(() => Users)
   @Column({
     allowNull: false,
@@ -35,8 +36,8 @@ export class Posts extends Model {
   })
   text: string;
 
-  @BelongsToMany(() => Tags, () => PostTags)
-  tags: Tags[];
+  @BelongsToMany(() => Tag, () => PostTags)
+  tags: Tag[];
 
   @Column
   image_url: string;

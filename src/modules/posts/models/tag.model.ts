@@ -7,20 +7,20 @@ import {
   BelongsToMany,
 } from "sequelize-typescript";
 import { PostTags } from "./postTags.model";
-import { Posts } from "./post.model";
+import { Post } from "./post.model";
 
 @Table({
-  tableName: "Tags",
+  tableName: "Tag",
 })
-export class Tags extends Model {
+export class Tag extends Model {
   @Column({
     allowNull: false,
     unique: true,
   })
   name: string;
 
-  @BelongsToMany(() => Posts, () => PostTags)
-  posts: Posts[];
+  @BelongsToMany(() => Post, () => PostTags)
+  posts: Post[];
 
   @CreatedAt
   createdAt: Date;
