@@ -1,4 +1,4 @@
-import { Users } from "db/models/users.model";
+import { Users } from "src/modules/users/users.model";
 import {
   Model,
   Column,
