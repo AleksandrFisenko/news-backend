@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/sequelize";
 
 import { Post } from "./models/post.model";
 import { Tag } from "./models/tag.model";
-import { Users } from "src/modules/users/users.model";
+import { User } from "src/models/users.model";
 
 @Injectable()
 export class PostsService {
@@ -17,7 +17,7 @@ export class PostsService {
       attributes: { exclude: ["createdAt", "user_id"] },
       include: [
         {
-          model: Users,
+          model: User,
           as: "user",
           attributes: ["id", "email", "avatar_url"],
         },

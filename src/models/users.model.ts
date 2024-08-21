@@ -7,9 +7,9 @@ import {
 } from "sequelize-typescript";
 
 @Table({
-  tableName: "Users",
+  tableName: "User",
 })
-export class Users extends Model {
+export class User extends Model {
   @Column({
     allowNull: false,
     unique: true,

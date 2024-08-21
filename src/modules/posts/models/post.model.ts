@@ -1,4 +1,4 @@
-import { Users } from "src/modules/users/users.model";
+import { User } from "src/models/users.model";
 import {
   Model,
   Column,
@@ -17,14 +17,14 @@ import { PostTags } from "./postTags.model";
   tableName: "Post",
 })
 export class Post extends Model {
-  @ForeignKey(() => Users)
+  @ForeignKey(() => User)
   @Column({
     allowNull: false,
   })
   user_id: number;
 
-  @BelongsTo(() => Users)
-  user: Users;
+  @BelongsTo(() => User)
+  user: User;
 
   @Column({
     allowNull: false,

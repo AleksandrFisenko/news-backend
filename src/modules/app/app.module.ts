@@ -6,9 +6,9 @@ import { PostsModule } from "../posts/posts.module";
 import { Post } from "../posts/models/post.model";
 import { Tag } from "../posts/models/tag.model";
 import { PostTags } from "../posts/models/postTags.model";
-import { UsersModule } from "../users/users.module";
+import { UsersModule } from "../auth/auth.module";
 
-import { Users } from "src/modules/users/users.model";
+import { User } from "../../models/users.model"; 
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { Users } from "src/modules/users/users.model";
         username: configService.get("DB_USER"),
         password: configService.get("DB_PASSWORD"),
         database: configService.get("DB_NAME"),
-        models: [Post, Tag, Users, PostTags],
+        models: [Post, Tag, User, PostTags],
       }),
     }),
     PostsModule, UsersModule
