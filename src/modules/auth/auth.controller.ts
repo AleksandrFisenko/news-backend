@@ -1,6 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
-
-import { UserWithoutParams } from "src/types/common";
+import { Body, Controller, Get, Post, Request } from "@nestjs/common";
 
 import { AuthService } from "./auth.service";
 import { CreateUserDTO } from "./dto/create-user.dto";
@@ -11,16 +9,12 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post("registration")
-  createUser(
-    @Body() dto: CreateUserDTO
-  ): Promise<{ token: string; user: UserWithoutParams }> {
+  createUser(@Body() dto: CreateUserDTO) {
     return this.authService.createUser(dto);
   }
 
   @Post("login")
-  loginUser(
-    @Body() dto: LoginUserDTO
-  ): Promise<{ token: string; user: UserWithoutParams }> {
+  loginUser(@Body() dto: LoginUserDTO) {
     return this.authService.loginUser(dto);
   }
 }

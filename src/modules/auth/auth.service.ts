@@ -5,15 +5,15 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { hash } from "bcrypt";
+import { compare, hash } from "bcrypt";
+import { JwtService } from "@nestjs/jwt";
 
 import { User } from "src/models/users.model";
-
-import { CreateUserDTO } from "./dto/create-user.dto";
 import { AppError } from "src/common/errors";
-import { JwtService } from "@nestjs/jwt";
 import { deleteUserParams } from "src/utils";
 import { UserWithoutParams } from "src/types/common";
+
+import { CreateUserDTO } from "./dto/create-user.dto";
 import { LoginUserDTO } from "./dto/login-user.dto";
 
 @Injectable()
@@ -63,13 +63,11 @@ export class AuthService {
     const existingUser = await this.findUserByEmail(dto.email);
     if (!existingUser) throw new NotFoundException(AppError.USER_DONT_EXIST);
 
-    dto.password = await this.hashPassword(dto.password);
+    const isPasswordValid = await compare(dto.password, existingUser.password);
+    if (!isPasswordValid) throw new UnauthorizedException(AppError.INVALID_CREDENTIALS);
 
-    const user = existingUser.dataValues;
-    if (user.password !== dto.password) throw new UnauthorizedException();
-
-    const userWithoutParams = deleteUserParams(user.dataValues);
-    const payload = { sub: user.id, username: user.email };
+    const userWithoutParams = deleteUserParams(existingUser.dataValues);
+    const payload = { sub: existingUser.id, email: existingUser.email };
     return {
       token: await this.jwtService.signAsync(payload),
       user: userWithoutParams,
