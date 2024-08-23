@@ -6,7 +6,6 @@ import {
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { compare, hash } from "bcrypt";
-import { JwtService } from "@nestjs/jwt";
 
 import { User } from "src/models/users.model";
 import { AppError } from "src/common/errors";
@@ -15,13 +14,14 @@ import { UserWithoutParams } from "src/types/common";
 
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { LoginUserDTO } from "./dto/login-user.dto";
+import { TokenService } from "../token/token.service";
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User)
     private readonly usersRepository: typeof User,
-    private jwtService: JwtService
+    private tokenService: TokenService
   ) {}
 
   async findUserByEmail(email: string): Promise<User | undefined> {
@@ -50,9 +50,8 @@ export class AuthService {
     });
 
     const userWithoutParams = deleteUserParams(user.dataValues);
-    const payload = { sub: user.id, username: user.email };
     return {
-      token: await this.jwtService.signAsync(payload),
+      token: await this.tokenService.generateToken(userWithoutParams),
       user: userWithoutParams,
     };
   }
@@ -64,12 +63,12 @@ export class AuthService {
     if (!existingUser) throw new NotFoundException(AppError.USER_DONT_EXIST);
 
     const isPasswordValid = await compare(dto.password, existingUser.password);
-    if (!isPasswordValid) throw new UnauthorizedException(AppError.INVALID_CREDENTIALS);
+    if (!isPasswordValid)
+      throw new UnauthorizedException(AppError.INVALID_CREDENTIALS);
 
     const userWithoutParams = deleteUserParams(existingUser.dataValues);
-    const payload = { sub: existingUser.id, email: existingUser.email };
     return {
-      token: await this.jwtService.signAsync(payload),
+      token: await this.tokenService.generateToken(userWithoutParams),
       user: userWithoutParams,
     };
   }
