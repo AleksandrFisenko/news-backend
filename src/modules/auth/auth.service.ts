@@ -2,7 +2,6 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { compare, hash } from "bcrypt";
@@ -14,23 +13,18 @@ import { UserWithoutParams } from "src/types/common";
 
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { LoginUserDTO } from "./dto/login-user.dto";
+
 import { TokenService } from "../token/token.service";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User)
     private readonly usersRepository: typeof User,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private userService: UserService
   ) {}
-
-  async findUserByEmail(email: string): Promise<User | undefined> {
-    return this.usersRepository.findOne({
-      where: {
-        email,
-      },
-    });
-  }
 
   async hashPassword(password: string): Promise<string> {
     return hash(password, 10);
@@ -39,7 +33,7 @@ export class AuthService {
   async createUser(
     dto: CreateUserDTO
   ): Promise<{ token: string; user: UserWithoutParams }> {
-    const existingUser = await this.findUserByEmail(dto.email);
+    const existingUser = await this.userService.findUserByEmail(dto.email);
     if (existingUser) throw new ConflictException(AppError.USER_EXISTS);
 
     dto.password = await this.hashPassword(dto.password);
@@ -56,20 +50,22 @@ export class AuthService {
     };
   }
 
-  async loginUser(
-    dto: LoginUserDTO
-  ): Promise<{ token: string; user: UserWithoutParams }> {
-    const existingUser = await this.findUserByEmail(dto.email);
+  async validateUser(dto: LoginUserDTO): Promise<UserWithoutParams> {
+    const existingUser = await this.userService.findUserByEmail(dto.email);
     if (!existingUser) throw new NotFoundException(AppError.USER_DONT_EXIST);
 
     const isPasswordValid = await compare(dto.password, existingUser.password);
-    if (!isPasswordValid)
-      throw new UnauthorizedException(AppError.INVALID_CREDENTIALS);
+    if (!isPasswordValid) return null;
 
-    const userWithoutParams = deleteUserParams(existingUser.dataValues);
+    return deleteUserParams(existingUser.dataValues);
+  }
+
+  async loginUser(
+    dto: UserWithoutParams
+  ): Promise<{ token: string; user: UserWithoutParams }> {
     return {
-      token: await this.tokenService.generateToken(userWithoutParams),
-      user: userWithoutParams,
+      token: await this.tokenService.generateToken(dto),
+      user: dto,
     };
   }
 }
