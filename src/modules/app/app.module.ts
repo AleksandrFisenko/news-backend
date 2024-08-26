@@ -9,7 +9,6 @@ import { Post } from "../posts/models/post.model";
 import { Tag } from "../posts/models/tag.model";
 import { PostTags } from "../posts/models/postTags.model";
 import { AuthModule } from "../auth/auth.module";
-import { TokenModule } from "../token/token.module";
 import { UserModule } from "../user/user.module";
 
 @Module({
@@ -30,7 +29,7 @@ import { UserModule } from "../user/user.module";
         models: [Post, Tag, User, PostTags],
       }),
     }),
-    PostsModule, AuthModule, TokenModule, UserModule
+    PostsModule, AuthModule, UserModule
   ],
   controllers: [],
   providers: [],
