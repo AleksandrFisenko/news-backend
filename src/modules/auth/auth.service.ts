@@ -73,4 +73,9 @@ export class AuthService {
       user: dto,
     };
   }
+
+  async getProfile(email: string): Promise<UserWithoutParams> {
+    const user = await this.userService.findUserByEmail(email);
+    return deleteUserParams(user.dataValues);
+  }
 }
