@@ -22,8 +22,8 @@ export class AuthService {
   constructor(
     @InjectModel(User)
     private readonly usersRepository: typeof User,
-    private userService: UserService,
-    private jwtService: JwtService
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService
   ) {}
 
   async hashPassword(password: string): Promise<string> {

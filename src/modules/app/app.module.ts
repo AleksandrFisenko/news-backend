@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
 
-import { User } from "../../models/users.model"; 
+import { User } from "../../models/users.model";
 
 import { PostsModule } from "../posts/posts.module";
 import { Post } from "../posts/models/post.model";
@@ -29,7 +29,9 @@ import { UserModule } from "../user/user.module";
         models: [Post, Tag, User, PostTags],
       }),
     }),
-    PostsModule, AuthModule, UserModule
+    PostsModule,
+    AuthModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
