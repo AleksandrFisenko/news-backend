@@ -19,6 +19,6 @@ import { UserModule } from "../user/user.module";
     UserModule,
   ],
   providers: [LocalStrategy, JwtStrategy],
-  exports: [LocalStrategy, JwtStrategy]
+  exports: [LocalStrategy, JwtStrategy, JwtModule],
 })
 export class JWTModule {}

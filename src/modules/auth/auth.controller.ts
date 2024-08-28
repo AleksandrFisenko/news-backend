@@ -31,6 +31,6 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get("profile")
   getProfile(@Request() req): Promise<UserWithoutParams> {
-    return this.authService.getProfile(req.user.email);
+    return req.user;
   }
 }

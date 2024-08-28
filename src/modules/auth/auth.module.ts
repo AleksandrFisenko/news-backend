@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { PassportModule } from "@nestjs/passport";
-import { JwtModule } from "@nestjs/jwt";
 
 import { User } from "../../models/users.model";
 import { UserModule } from "../user/user.module";
@@ -16,7 +15,6 @@ import { AuthService } from "./auth.service";
     UserModule,
     PassportModule,
     JWTModule,
-    JwtModule,
   ],
   controllers: [AuthController],
   providers: [AuthService],
