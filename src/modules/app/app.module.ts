@@ -10,6 +10,7 @@ import { Tag } from "../posts/models/tag.model";
 import { PostTags } from "../posts/models/postTags.model";
 import { AuthModule } from "../auth/auth.module";
 import { UserModule } from "../user/user.module";
+import { JWTModule } from "../jwt/jwt.module";
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { UserModule } from "../user/user.module";
     PostsModule,
     AuthModule,
     UserModule,
+    JWTModule,
   ],
   controllers: [],
   providers: [],

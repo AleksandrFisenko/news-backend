@@ -1,21 +1,15 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { ConflictException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { compare, hash } from "bcrypt";
+import { hash } from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 
-import { User } from "src/models/users.model";
-import { AppError } from "src/common/errors";
-import { deleteUserParams } from "src/utils";
-import { UserWithoutParams } from "src/types/common";
-
+import { User } from "../../models/users.model";
+import { AppError } from "../../common/errors";
+import { deleteUserParams } from "../../utils";
+import { LoginResponce, UserWithoutParams } from "../../types/common";
 import { UserService } from "../user/user.service";
 
 import { CreateUserDTO } from "./dto/create-user.dto";
-import { LoginUserDTO } from "./dto/login-user.dto";
 
 @Injectable()
 export class AuthService {
@@ -30,14 +24,12 @@ export class AuthService {
     return hash(password, 10);
   }
 
-  async generateToken(user: UserWithoutParams) {
+  async generateToken(user: UserWithoutParams): Promise<string> {
     const payload = { sub: user.id, email: user.email };
     return await this.jwtService.signAsync(payload);
   }
 
-  async createUser(
-    dto: CreateUserDTO
-  ): Promise<{ token: string; user: UserWithoutParams }> {
+  async createUser(dto: CreateUserDTO): Promise<LoginResponce> {
     const existingUser = await this.userService.findUserByEmail(dto.email);
     if (existingUser) throw new ConflictException(AppError.USER_EXISTS);
 
@@ -55,19 +47,7 @@ export class AuthService {
     };
   }
 
-  async validateUser(dto: LoginUserDTO): Promise<UserWithoutParams> {
-    const existingUser = await this.userService.findUserByEmail(dto.email);
-    if (!existingUser) throw new NotFoundException(AppError.USER_DONT_EXIST);
-
-    const isPasswordValid = await compare(dto.password, existingUser.password);
-    if (!isPasswordValid) return null;
-
-    return deleteUserParams(existingUser.dataValues);
-  }
-
-  async loginUser(
-    dto: UserWithoutParams
-  ): Promise<{ token: string; user: UserWithoutParams }> {
+  async loginUser(dto: UserWithoutParams): Promise<LoginResponce> {
     return {
       token: await this.generateToken(dto),
       user: dto,
