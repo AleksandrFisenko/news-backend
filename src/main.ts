@@ -12,6 +12,7 @@ async function bootstrap() {
     new ValidationPipe({
       disableErrorMessages: true,
       whitelist: true,
+      transform: true,
     })
   );
   app.enableCors();

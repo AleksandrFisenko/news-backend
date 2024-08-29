@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { hash } from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
@@ -47,7 +51,7 @@ export class AuthService {
         user: userWithoutParams,
       };
     } catch (err) {
-      throw new InternalServerErrorException()
+      throw new InternalServerErrorException();
     }
   }
 

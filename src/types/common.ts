@@ -15,6 +15,6 @@ export interface JwtPayload {
   email: string;
 }
 
-export interface UserRequrst extends Request {
+export interface UserRequest extends Request {
   user: UserWithoutParams;
 }
