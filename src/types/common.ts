@@ -9,3 +9,8 @@ export interface LoginResponce {
   token: string;
   user: UserWithoutParams;
 }
+
+export interface JwtPayload {
+  sub: number;
+  email: string;
+}

@@ -33,11 +33,11 @@ export class AuthService {
     const existingUser = await this.userService.findUserByEmail(dto.email);
     if (existingUser) throw new ConflictException(AppError.USER_EXISTS);
 
-    dto.password = await this.hashPassword(dto.password);
+    const password = await this.hashPassword(dto.password);
     const user = await this.usersRepository.create({
       email: dto.email,
       login: dto.login,
-      password: dto.password,
+      password: password,
     });
 
     const userWithoutParams = deleteUserParams(user.dataValues);
