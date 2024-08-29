@@ -14,12 +14,12 @@ export class PostsService {
 
   getPosts(): Promise<Post[]> {
     return this.postsRepository.findAll({
-      attributes: { exclude: ["createdAt", "user_id"] },
+      attributes: { exclude: ["createdAt", "userId"] },
       include: [
         {
           model: User,
           as: "user",
-          attributes: ["id", "email", "avatar_url"],
+          attributes: ["id", "email", "avatarUrl"],
         },
         {
           model: Tag,

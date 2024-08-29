@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'User',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -37,12 +37,12 @@ module.exports = {
       image_url: {
         type: Sequelize.STRING,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         defaultValue: Date.now(),
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         defaultValue: Date.now(),
         type: Sequelize.DATE,

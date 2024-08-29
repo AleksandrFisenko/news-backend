@@ -15,13 +15,14 @@ import { PostTags } from "./postTags.model";
 
 @Table({
   tableName: "Post",
+  underscored: true,
 })
 export class Post extends Model {
   @ForeignKey(() => User)
   @Column({
     allowNull: false,
   })
-  user_id: number;
+  userId: number;
 
   @BelongsTo(() => User)
   user: User;
@@ -40,7 +41,7 @@ export class Post extends Model {
   tags: Tag[];
 
   @Column
-  image_url: string;
+  imageUrl: string;
 
   @CreatedAt
   createdAt: Date;

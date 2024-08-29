@@ -8,6 +8,7 @@ import {
 
 @Table({
   tableName: "User",
+  underscored: true,
 })
 export class User extends Model {
   @Column({
@@ -27,7 +28,7 @@ export class User extends Model {
   login: string;
 
   @Column
-  avatar_url: string;
+  avatarUrl: string;
 
   @CreatedAt
   createdAt: Date;

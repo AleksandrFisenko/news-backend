@@ -11,6 +11,7 @@ import { Post } from "./post.model";
 
 @Table({
   tableName: "Tag",
+  underscored: true,
 })
 export class Tag extends Model {
   @Column({

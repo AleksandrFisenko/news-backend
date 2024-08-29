@@ -36,12 +36,12 @@ module.exports = {
       avatar_url: {
         type: Sequelize.STRING,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         defaultValue: Date.now(),
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         defaultValue: Date.now(),
         type: Sequelize.DATE,
@@ -50,6 +50,6 @@ module.exports = {
   },
 
   down(queryInterface) {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('User');
   },
 };
