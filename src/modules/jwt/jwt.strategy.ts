@@ -23,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: JwtPayload): Promise<UserWithoutParams> {
     const user = await this.userService.findUserByEmail(payload.email);
-    if (!user) throw new NotFoundException(AppError.USER_DONT_EXIST)
+    if (!user) throw new NotFoundException(AppError.USER_DONT_EXIST);
     return deleteUserParams(user.dataValues);
   }
 }

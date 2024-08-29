@@ -22,7 +22,7 @@ import { AuthService } from "./auth.service";
   providers: [
     AuthService,
     LocalStrategy,
-    JwtStrategy
+    JwtStrategy,
   ],
 })
 export class AuthModule {}
