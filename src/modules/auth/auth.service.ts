@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { hash } from "bcrypt";
+import { genSalt, hash } from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 
 import { User } from "../../models/users.model";
@@ -25,7 +25,8 @@ export class AuthService {
   ) {}
 
   async hashPassword(password: string): Promise<string> {
-    return hash(password, 10);
+    const salt = await genSalt();
+    return hash(password, salt);
   }
 
   async generateToken(user: UserWithoutParams): Promise<string> {
