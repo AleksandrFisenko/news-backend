@@ -1,9 +1,11 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
+
+import { UserModule } from "../user/user.module";
+
 import { LocalStrategy } from "./local.strategy";
 import { JwtStrategy } from "./jwt.strategy";
-import { UserModule } from "../user/user.module";
 
 @Module({
   imports: [
