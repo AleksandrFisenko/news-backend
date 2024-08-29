@@ -14,3 +14,7 @@ export interface JwtPayload {
   sub: number;
   email: string;
 }
+
+export interface UserRequrst extends Request {
+  user: UserWithoutParams;
+}

@@ -4,9 +4,6 @@ import { JwtModule } from "@nestjs/jwt";
 
 import { UserModule } from "../user/user.module";
 
-import { LocalStrategy } from "./local.strategy";
-import { JwtStrategy } from "./jwt.strategy";
-
 @Module({
   imports: [
     JwtModule.registerAsync({
@@ -20,7 +17,6 @@ import { JwtStrategy } from "./jwt.strategy";
     }),
     UserModule,
   ],
-  providers: [LocalStrategy, JwtStrategy],
-  exports: [LocalStrategy, JwtStrategy, JwtModule],
+  exports: [JwtModule],
 })
 export class JWTModule {}

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
@@ -6,6 +6,7 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 import { JwtPayload, UserWithoutParams } from "../../types/common";
 import { UserService } from "../user/user.service";
 import { deleteUserParams } from "../../utils";
+import { AppError } from "src/common/errors";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -22,6 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: JwtPayload): Promise<UserWithoutParams> {
     const user = await this.userService.findUserByEmail(payload.email);
+    if (user) throw new NotFoundException(AppError.USER_DONT_EXIST)
     return deleteUserParams(user.dataValues);
   }
 }

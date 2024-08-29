@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 
-import { LoginResponce, UserWithoutParams } from "../../types/common";
+import { LoginResponce, UserRequrst, UserWithoutParams } from "../../types/common";
 
 import { AuthService } from "./auth.service";
 import { CreateUserDTO } from "./dto/create-user.dto";
@@ -27,13 +27,13 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @HttpCode(200)
   @Post("login")
-  loginUser(@Request() dto): Promise<LoginResponce> {
+  loginUser(@Request() dto: UserRequrst): Promise<LoginResponce> {
     return this.authService.loginUser(dto.user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get("profile")
-  getProfile(@Request() req): Promise<UserWithoutParams> {
+  getProfile(@Request() req: UserRequrst): UserWithoutParams {
     return req.user;
   }
 }

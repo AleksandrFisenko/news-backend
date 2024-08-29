@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { hash } from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
@@ -34,17 +34,21 @@ export class AuthService {
     if (existingUser) throw new ConflictException(AppError.USER_EXISTS);
 
     const password = await this.hashPassword(dto.password);
-    const user = await this.usersRepository.create({
-      email: dto.email,
-      login: dto.login,
-      password: password,
-    });
+    try {
+      const user = await this.usersRepository.create({
+        email: dto.email,
+        login: dto.login,
+        password: password,
+      });
 
-    const userWithoutParams = deleteUserParams(user.dataValues);
-    return {
-      token: await this.generateToken(userWithoutParams),
-      user: userWithoutParams,
-    };
+      const userWithoutParams = deleteUserParams(user.dataValues);
+      return {
+        token: await this.generateToken(userWithoutParams),
+        user: userWithoutParams,
+      };
+    } catch (err) {
+      throw new InternalServerErrorException()
+    }
   }
 
   async loginUser(dto: UserWithoutParams): Promise<LoginResponce> {
