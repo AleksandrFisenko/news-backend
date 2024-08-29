@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-
-import { User } from "src/models/users.model";
-import { LoginUserDTO } from "../auth/dto/login-user.dto";
-import { UserWithoutParams } from "src/types/common";
-import { AppError } from "src/common/errors";
 import { compare } from "bcrypt";
-import { deleteUserParams } from "src/utils";
+
+import { User } from "../../models/users.model";
+import { LoginUserDTO } from "../auth/dto/login-user.dto";
+import { UserWithoutParams } from "../../types/common";
+import { AppError } from "../../common/errors";
+import { deleteUserParams } from "../../utils";
 
 @Injectable()
 export class UserService {

@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
 
 import { User } from "../../models/users.model";
-
 import { PostsModule } from "../posts/posts.module";
 import { Post } from "../posts/models/post.model";
 import { Tag } from "../posts/models/tag.model";

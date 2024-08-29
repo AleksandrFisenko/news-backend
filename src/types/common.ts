@@ -1,4 +1,4 @@
-import { User } from "src/models/users.model";
+import { User } from "../models/users.model";
 
 export type UserWithoutParams = Pick<
   User,
