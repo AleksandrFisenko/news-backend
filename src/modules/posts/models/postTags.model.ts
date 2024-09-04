@@ -11,15 +11,16 @@ import { Tag } from "./tag.model";
 
 @Table({
   tableName: "PostTags",
+  underscored: true,
 })
 export class PostTags extends Model {
   @ForeignKey(() => Post)
   @Column
-  post_id: number;
+  postId: number;
 
   @ForeignKey(() => Tag)
   @Column
-  tag_id: number;
+  tagId: number;
 
   @CreatedAt
   createdAt: Date;

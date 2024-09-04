@@ -2,11 +2,14 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
 
+import { User } from "../../models/users.model";
 import { PostsModule } from "../posts/posts.module";
 import { Post } from "../posts/models/post.model";
 import { Tag } from "../posts/models/tag.model";
 import { PostTags } from "../posts/models/postTags.model";
-import { Users } from "db/models/users.model";
+import { AuthModule } from "../auth/auth.module";
+import { UserModule } from "../user/user.module";
+import { JWTModule } from "../jwt/jwt.module";
 
 @Module({
   imports: [
@@ -23,10 +26,13 @@ import { Users } from "db/models/users.model";
         username: configService.get("DB_USER"),
         password: configService.get("DB_PASSWORD"),
         database: configService.get("DB_NAME"),
-        models: [Post, Tag, Users, PostTags],
+        models: [Post, Tag, User, PostTags],
       }),
     }),
     PostsModule,
+    AuthModule,
+    UserModule,
+    JWTModule,
   ],
   controllers: [],
   providers: [],

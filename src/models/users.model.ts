@@ -7,9 +7,10 @@ import {
 } from "sequelize-typescript";
 
 @Table({
-  tableName: "Users",
+  tableName: "User",
+  underscored: true,
 })
-export class Users extends Model {
+export class User extends Model {
   @Column({
     allowNull: false,
     unique: true,
@@ -27,7 +28,7 @@ export class Users extends Model {
   login: string;
 
   @Column
-  avatar_url: string;
+  avatarUrl: string;
 
   @CreatedAt
   createdAt: Date;

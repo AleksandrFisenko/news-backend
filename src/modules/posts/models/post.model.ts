@@ -1,4 +1,4 @@
-import { Users } from "db/models/users.model";
+import { User } from "src/models/users.model";
 import {
   Model,
   Column,
@@ -15,16 +15,17 @@ import { PostTags } from "./postTags.model";
 
 @Table({
   tableName: "Post",
+  underscored: true,
 })
 export class Post extends Model {
-  @ForeignKey(() => Users)
+  @ForeignKey(() => User)
   @Column({
     allowNull: false,
   })
-  user_id: number;
+  userId: number;
 
-  @BelongsTo(() => Users)
-  user: Users;
+  @BelongsTo(() => User)
+  user: User;
 
   @Column({
     allowNull: false,
@@ -40,7 +41,7 @@ export class Post extends Model {
   tags: Tag[];
 
   @Column
-  image_url: string;
+  imageUrl: string;
 
   @CreatedAt
   createdAt: Date;
