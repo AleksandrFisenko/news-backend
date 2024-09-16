@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 
+import { User } from "../../models/users.model";
+
 import { Post } from "./models/post.model";
 import { Tag } from "./models/tag.model";
-import { User } from "src/models/users.model";
 
 @Injectable()
 export class PostsService {
@@ -28,6 +29,12 @@ export class PostsService {
           through: { attributes: [] },
         },
       ],
+    });
+  }
+
+  getPostsByUserId(id: number): Promise<Post[]> {
+    return this.postsRepository.findAll({
+      where: { userId: id },
     });
   }
 }

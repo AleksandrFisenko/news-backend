@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param, ParseIntPipe } from "@nestjs/common";
 
 import { PostsService } from "./posts.service";
 import { Post } from "./models/post.model";
@@ -10,5 +10,12 @@ export class PostsController {
   @Get()
   getPosts(): Promise<Post[]> {
     return this.postsService.getPosts();
+  }
+
+  @Get("user/:userId")
+  getPostsByUserId(
+    @Param("userId", ParseIntPipe) userId: number
+  ): Promise<Post[]> {
+    return this.postsService.getPostsByUserId(userId);
   }
 }

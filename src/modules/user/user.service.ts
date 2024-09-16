@@ -29,13 +29,6 @@ export class UserService {
       attributes: {
         exclude: ["password", "updatedAt"],
       },
-      include: [
-        {
-          model: Post,
-          as: "posts",
-          attributes: { exclude: ["createdAt", "userId"] },
-        },
-      ],
     });
   }
 
