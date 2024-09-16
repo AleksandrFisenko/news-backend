@@ -35,6 +35,7 @@ export class PostsService {
   getPostsByUserId(id: number): Promise<Post[]> {
     return this.postsRepository.findAll({
       where: { userId: id },
+      attributes: { exclude: ["createdAt", "userId"] },
     });
   }
 }
