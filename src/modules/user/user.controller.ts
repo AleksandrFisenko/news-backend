@@ -10,7 +10,6 @@ export class UserController {
 
   @Get(":id")
   getUser(@Param("id", ParseIntPipe) id: number): Promise<User> {
-    console.log(typeof id)
     return this.postsService.findUserById(id);
   }
 }

@@ -36,6 +36,19 @@ export class PostsService {
     return this.postsRepository.findAll({
       where: { userId: id },
       attributes: { exclude: ["createdAt", "userId"] },
+      include: [
+        {
+          model: User,
+          as: "user",
+          attributes: ["id", "email", "avatarUrl"],
+        },
+        {
+          model: Tag,
+          as: "tags",
+          attributes: ["id", "name"],
+          through: { attributes: [] },
+        },
+      ],
     });
   }
 }
