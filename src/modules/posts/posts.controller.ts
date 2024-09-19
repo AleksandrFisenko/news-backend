@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param, ParseIntPipe, Query } from "@nestjs/common";
 
 import { PostsService } from "./posts.service";
 import { Post } from "./models/post.model";
@@ -8,7 +8,8 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get()
-  getPosts(): Promise<Post[]> {
+  getPostsByUserId(@Query("author") authorId?: string): Promise<Post[]> {
+    if (authorId) return this.postsService.getPostsByUserId(parseInt(authorId));
     return this.postsService.getPosts();
   }
 }

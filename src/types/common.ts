@@ -2,7 +2,7 @@ import { User } from "../models/users.model";
 
 export type UserWithoutParams = Pick<
   User,
-  "id" | "email" | "login" | "updatedAt" | "avatarUrl"
+  "id" | "email" | "login" | "createdAt" | "avatarUrl"
 >;
 
 export interface LoginResponce {
