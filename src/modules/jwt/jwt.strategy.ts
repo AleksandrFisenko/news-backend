@@ -5,7 +5,7 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 
 import { JwtPayload, UserWithoutParams } from "../../types/common";
 import { UserService } from "../user/user.service";
-import { deleteUserParams } from "../../utils";
+import { deleteUserParams } from "../../utils/deleteParams";
 import { AppError } from "../../common/errors";
 
 @Injectable()

@@ -9,7 +9,7 @@ import { JwtService } from "@nestjs/jwt";
 
 import { User } from "../../models/users.model";
 import { AppError } from "../../common/errors";
-import { deleteUserParams } from "../../utils";
+import { deleteUserParams } from "../../utils/deleteParams";
 import { LoginResponce, UserWithoutParams } from "../../types/common";
 import { UserService } from "../user/user.service";
 

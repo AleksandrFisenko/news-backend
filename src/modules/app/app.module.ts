@@ -1,6 +1,9 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
+import { MulterModule } from "@nestjs/platform-express";
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { join } from "path";
 
 import { User } from "../../models/users.model";
 import { PostsModule } from "../posts/posts.module";
@@ -10,6 +13,7 @@ import { PostTags } from "../posts/models/postTags.model";
 import { AuthModule } from "../auth/auth.module";
 import { UserModule } from "../user/user.module";
 import { JWTModule } from "../jwt/jwt.module";
+
 
 @Module({
   imports: [
@@ -28,6 +32,13 @@ import { JWTModule } from "../jwt/jwt.module";
         database: configService.get("DB_NAME"),
         models: [Post, Tag, User, PostTags],
       }),
+    }),
+    MulterModule.register({
+      dest: "./static",
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../..', 'static/posts'),
+      serveRoot: '/static/posts',
     }),
     PostsModule,
     AuthModule,
