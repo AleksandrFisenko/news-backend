@@ -16,8 +16,8 @@ import { diskStorage } from "multer";
 
 import { UserRequest } from "../../types/common";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
-import { editFileName } from "../../utils/editImageName";
-import { imageFileFilter } from "../../utils/imageFilter";
+import { editFileName } from "../../utils";
+import { imageFileFilter } from "../../utils";
 
 import { PostsService } from "./posts.service";
 import { CreatePostDTO } from "./dto/create-post.dto";
