@@ -7,7 +7,6 @@ import { LoginUserDTO } from "../auth/dto/login-user.dto";
 import { UserWithoutParams } from "../../types/common";
 import { AppError } from "../../common/errors";
 import { deleteUserParams } from "../../utils";
-import { Post } from "../posts/models/post.model";
 
 @Injectable()
 export class UserService {
@@ -24,12 +23,14 @@ export class UserService {
   }
 
   async findUserById(id: number): Promise<User | undefined> {
-    return this.usersRepository.findOne({
+    const existingUser = await this.usersRepository.findOne({
       where: { id },
       attributes: {
         exclude: ["password", "updatedAt"],
       },
     });
+    if (!existingUser) throw new NotFoundException(AppError.USER_DONT_EXIST);
+    return existingUser;
   }
 
   async validateUser(dto: LoginUserDTO): Promise<UserWithoutParams> {

@@ -1,4 +1,3 @@
-import { User } from "src/models/users.model";
 import {
   Model,
   Column,
@@ -9,9 +8,11 @@ import {
   BelongsToMany,
   ForeignKey,
 } from "sequelize-typescript";
+
+import { User } from "src/models/users.model";
+
 import { Tag } from "./tag.model";
 import { PostTags } from "./postTags.model";
-
 
 @Table({
   tableName: "Post",
@@ -29,6 +30,7 @@ export class Post extends Model {
 
   @Column({
     allowNull: false,
+    unique: true,
   })
   title: string;
 
