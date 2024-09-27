@@ -6,8 +6,7 @@ import { User } from "../../models/users.model";
 import { LoginUserDTO } from "../auth/dto/login-user.dto";
 import { UserWithoutParams } from "../../types/common";
 import { AppError } from "../../common/errors";
-import { deleteUserParams } from "../../utils/deleteParams";
-import { Post } from "../posts/models/post.model";
+import { deleteUserParams } from "../../utils";
 
 @Injectable()
 export class UserService {
