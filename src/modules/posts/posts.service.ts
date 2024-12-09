@@ -96,7 +96,7 @@ export class PostsService {
     userId: number,
     post: CreatePostDTO,
     file: Express.Multer.File
-  ) {
+  ) {    
     const transaction = await this.postsRepository.sequelize.transaction();
     try {
       const createdPost = await this.postsRepository.create(
@@ -124,6 +124,8 @@ export class PostsService {
 
       return this.getPostById(createdPost.dataValues.id);
     } catch (error) {
+      console.log(error);
+      
       await transaction.rollback();
       const filePath = join(__dirname, "../../..", "static/posts", file.filename);
       unlink(filePath, ()=>{});
