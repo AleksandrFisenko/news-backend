@@ -1,5 +1,6 @@
 import { Request } from "express";
 import { extname } from "path";
+import * as crypto from 'crypto';
 
 export const editFileName = (
   req: Request,
