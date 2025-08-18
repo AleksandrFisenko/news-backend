@@ -5,11 +5,13 @@ import {
   Post,
   UseGuards,
   Request,
+  Param,
   Body,
   UploadedFile,
   ParseFilePipeBuilder,
   HttpStatus,
   UseInterceptors,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
@@ -31,6 +33,11 @@ export class PostsController {
   getPostsByUserId(@Query("author") authorId?: string) {
     if (authorId) return this.postsService.getPostsByUserId(parseInt(authorId));
     return this.postsService.getPosts();
+  }
+
+  @Get(":id")
+  getPostById(@Param("id", ParseIntPipe) id: number) {
+    return this.postsService.getPostById(id);
   }
 
   @UseGuards(JwtAuthGuard)

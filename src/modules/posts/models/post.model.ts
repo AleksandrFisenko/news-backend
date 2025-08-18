@@ -9,7 +9,7 @@ import {
   ForeignKey,
 } from "sequelize-typescript";
 
-import { User } from "src/models/users.model";
+import { User } from "../../../models/users.model";
 
 import { Tag } from "./tag.model";
 import { PostTags } from "./postTags.model";

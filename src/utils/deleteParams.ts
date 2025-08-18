@@ -1,4 +1,4 @@
-import { User } from "../models/users.model";
+import type { User } from "../models/users.model";
 import { UserWithoutParams } from "../types/common";
 
 export const deleteUserParams = (user: User): UserWithoutParams => {
