@@ -1,14 +1,16 @@
 import { editFileName } from "./editImageName";
+import * as crypto from "crypto";
 
 describe("EditImageName", () => {
   it("should generate file name", () => {
     const req = {} as any;
     const file = { originalname: "image.jpg" } as any;
     const callback = jest.fn();
-    const fixUUID = () => "unit-test-uuid";
 
-    editFileName(req, file, callback, fixUUID);
+    jest.spyOn(crypto, "randomUUID").mockReturnValue('unit-test-uuid-xd-mra');
 
-    expect(callback).toHaveBeenCalledWith(null, "image-unit-test-uuid.jpg");
+    editFileName(req, file, callback);
+
+    expect(callback).toHaveBeenCalledWith(null, "image-unit-test-uuid-xd-mra.jpg");
   });
 });
